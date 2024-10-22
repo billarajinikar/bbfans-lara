@@ -11,7 +11,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');;
 
 //Route::get('/', [ContestantController::class, 'index']);
 

@@ -20,6 +20,12 @@ class VoteController extends Controller
             'voter_ip' => $request->ip()
         ]);
 
-        return redirect()->route('home')->with('success', 'Your vote has been cast successfully!');
+        return redirect()->route(route: 'home')->with('success', 'Your vote has been cast successfully!');
+    }
+    public static function hasVoted($ipAddress, $pollId) {
+        $exists = Vote::where('voter_ip', $ipAddress)
+            ->where('poll_id', $pollId)
+            ->exists();
+        return $exists;    
     }
 }

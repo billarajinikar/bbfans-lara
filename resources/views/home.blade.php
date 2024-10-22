@@ -34,6 +34,7 @@
                     </form>
                     @else
                         <!-- Show results after voting -->
+                         <div class="alert alert-info" role="alert">Thank you! you have already voted!</div>
                         <h4 class="text-center mt-4">Poll Results</h4>
                         <ul class="list-group">
                             @foreach ($results as $result)
