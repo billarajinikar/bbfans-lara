@@ -12,7 +12,7 @@
             <div class="card mx-auto shadow-sm" style="max-width: 600px;">
                 <div class="card-body">
                     <h3 class="card-title text-center">{{ $activePoll->title }}</h3>
-                    <p class="text-center">Voting is open from {{ $activePoll->start_at }} to {{ $activePoll->end_at }}.</p>
+                    <p class="text-center">Voting closes on {{ $activePoll->end_at }}.</p>
                     @if (!$hasVoted)
                     <form action="{{ route('polls.vote', $activePoll->id) }}" method="POST">
                         @csrf
@@ -34,16 +34,39 @@
                     </form>
                     @else
                         <!-- Show results after voting -->
-                         <div class="alert alert-info" role="alert">Thank you! you have already voted!</div>
-                        <h4 class="text-center mt-4">Poll Results</h4>
-                        <ul class="list-group">
-                            @foreach ($results as $result)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ $result['name'] }}
-                                    <span class="badge bg-primary rounded-pill">{{ $result['votes'] }} votes</span>
-                                </li>
-                            @endforeach
-                        </ul>
+<div class="alert alert-info" role="alert">Thank you! You have already voted!</div>
+<h4 class="text-center mt-4">Poll Results</h4>
+<ul class="list-group">
+    @foreach ($results as $index => $result)
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <b>{{ $result['name'] }}</b>
+                <span class="badge bg-primary rounded-pill">{{ $result['percentage'] }}%</span>
+            </div>
+            <div class="progress mt-2">
+                <div class="progress-bar 
+                    @if ($index >= count($results) - 2)
+                        @if ($index === count($results) - 1)
+                            bg-danger  <!-- Lowest contestant -->
+                        @else
+                            bg-warning <!-- Second lowest contestant -->
+                        @endif
+                    @elseif ($result['percentage'] >= 75)
+                        bg-success
+                    @elseif ($result['percentage'] >= 50)
+                        bg-info
+                    @else
+                        bg-primary
+                    @endif
+                " role="progressbar" style="width: {{ $result['percentage'] }}%;" aria-valuenow="{{ $result['percentage'] }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ $result['percentage'] }}%
+                </div>
+            </div>
+        </li>
+    @endforeach
+</ul>
+
+
                     @endif
                 </div>
             </div>

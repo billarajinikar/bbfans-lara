@@ -8,7 +8,8 @@ class ContestantController extends Controller
 {
     public function index()
     {
-        $contestants = Contestant::get();
+        $seasson = 8;
+        $contestants = Contestant::where('seasson', $seasson)->get();
         return view('home', compact('contestants'));
     }
 
@@ -16,5 +17,9 @@ class ContestantController extends Controller
     {
         $contestant = Contestant::with('media')->findOrFail($id);
         return view('contestant.show', compact('contestant'));
+    }
+    public static function getContestantsBySeasson($seasson) {
+        $contestants = Contestant::where('seasson', $seasson)->get();
+        return $contestants;
     }
 }

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poll;  // This allows you to use the Poll model
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PollController extends Controller
 {
@@ -36,16 +37,26 @@ class PollController extends Controller
     }
     public static function getPollResults(Poll $poll)
     {
-        $results = $poll->contestants()
-            ->withCount('votes')
-            ->get()
-            ->map(function ($contestant) {
-                return [
-                    'name' => $contestant->name,
-                    'votes' => $contestant->votes_count,
-                ];
-            });
+        $contestants = $poll->contestants()->withCount('votes')->get();
+        $totalVotes = $contestants->sum('votes_count');
 
-        return $results;
+        $results = $contestants->map(function ($contestant) use ($totalVotes) {
+            $percentage = $totalVotes > 0 ? ($contestant->votes_count / $totalVotes) * 100 : 0;
+            return [
+                'name' => $contestant->name,
+                'votes' => $contestant->votes_count,
+                'percentage' => round($percentage, 2),
+            ];
+        });
+        return $results->sortByDesc('percentage')->values()->all();
+    }
+
+    public static function getActivePoll() {
+        $now = Carbon::now();
+        $activePoll = Poll::with('contestants')
+            ->where('start_at', '<=', $now)
+            ->where('end_at', '>=', $now)
+            ->first();
+        return $activePoll;
     }
 }

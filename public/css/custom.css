@@ -1,3 +1,14 @@
+body {
+    background-color: #ffffff; /* Example color: Pale peach */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Content area */
+main {
+    padding: 20px;
+}
+
 /* Default hamburger icon color */
 .navbar-toggler-icon {
     background-image: none;
