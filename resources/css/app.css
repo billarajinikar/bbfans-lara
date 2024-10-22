@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.radio-large {
+    width: 2em;
+    height: 1.5em;
+}

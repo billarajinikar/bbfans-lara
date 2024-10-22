@@ -1,0 +1,81 @@
+/* Default hamburger icon color */
+.navbar-toggler-icon {
+    background-image: none;
+    position: relative;
+    width: 30px;
+    height: 20px;
+}
+
+/* Hamburger icon bars */
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after,
+.navbar-toggler-icon div {
+    background-color: #ff0000; /* Match the red from your logo */
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+}
+
+/* Change the hamburger icon to a close (X) icon when the menu is open */
+.navbar-toggler.collapsed .navbar-toggler-icon div {
+    transform: rotate(45deg);
+    position: absolute;
+    top: 8px;
+}
+
+.navbar-toggler.collapsed .navbar-toggler-icon::before {
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 8px;
+}
+
+.navbar-toggler.collapsed .navbar-toggler-icon::after {
+    display: none; /* Hide the middle bar */
+}
+
+
+/* Hide the default radio button appearance */
+.radio-large {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 10px;
+    border: 2px solid #007bff; /* Border color for unselected radio */
+    border-radius: 50%; /* Make the border circular */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    background-color: transparent; /* Ensure no background initially */
+}
+
+/* Style the radio button when checked (selected) */
+.radio-large:checked {
+    background-color: #007bff; /* Background color for selected radio */
+    border-color: #007bff; /* Keep the border color consistent */
+}
+
+/* Add a checkmark when the radio button is selected */
+.radio-large:checked::after {
+    content: '✔'; /* Checkmark symbol */
+    color: rgb(28, 132, 17);
+    font-size: 1.2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Ensure the radio button has no visible background (no circle/dot) */
+.radio-large::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Ensure transparent background */
+    border-radius: 50%;
+}
