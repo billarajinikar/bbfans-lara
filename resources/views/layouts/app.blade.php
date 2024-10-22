@@ -19,24 +19,23 @@
             <img src="{{ asset('images/logo.png') }}" alt="BBFans.in Logo" class="img-fluid" style="width: 120px;">
         </a>
 
-        <!-- Hamburger menu with custom styling -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
                 <div></div>
             </span>
-        </button>
+        </button> -->
 
-        <!-- Menu items aligned to the right on desktop -->
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <!-- <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link text-primary" href="{{ url('/blog') }}">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="{{ url('/vote') }}">Vote</a>
-                </li>
+                </li> 
             </ul>
-        </div>
+        </div> -->
+    
     </div>
 </nav>
 
@@ -60,14 +59,14 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+       /*  document.addEventListener('DOMContentLoaded', function () {
             const toggler = document.querySelector('.navbar-toggler');
             const navbarCollapse = document.querySelector('#navbarNav');
 
             toggler.addEventListener('click', function () {
                 toggler.classList.toggle('collapsed');
             });
-        });
+        }); */
     </script>
     
 
