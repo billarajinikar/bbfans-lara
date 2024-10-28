@@ -37,17 +37,30 @@ class PollController extends Controller
     }
     public static function getPollResults(Poll $poll)
     {
-        $contestants = $poll->contestants()->withCount('votes')->get();
+        $contestants = $poll->contestants->map(function ($contestant) use ($poll) {
+            $votesCount = $contestant->votesForPoll($poll->id)->count();
+            return [
+                'contestant' => $contestant,
+                'votes_count' => $votesCount
+            ];
+        });
+    
+        // Calculate the total votes for the poll
         $totalVotes = $contestants->sum('votes_count');
-
-        $results = $contestants->map(function ($contestant) use ($totalVotes) {
-            $percentage = $totalVotes > 0 ? ($contestant->votes_count / $totalVotes) * 100 : 0;
+        
+        // Map the results and calculate percentages
+        $results = $contestants->map(function ($contestantData) use ($totalVotes) {
+            $contestant = $contestantData['contestant'];
+            $votesCount = $contestantData['votes_count'];
+            $percentage = $totalVotes > 0 ? ($votesCount / $totalVotes) * 100 : 0;
+            
             return [
                 'name' => $contestant->name,
-                'votes' => $contestant->votes_count,
+                'votes' => $votesCount,
                 'percentage' => round($percentage, 2),
             ];
         });
+    
         return $results->sortByDesc('percentage')->values()->all();
     }
 

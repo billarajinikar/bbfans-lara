@@ -19,6 +19,12 @@ class Contestant extends Model
     {
         return $this->hasMany(Contestant::class);
     }
+    public function votesForPoll($pollId)
+    {
+        return $this->hasMany(Vote::class)
+                    ->where('poll_id', $pollId);
+    }
+
 
     
 }
