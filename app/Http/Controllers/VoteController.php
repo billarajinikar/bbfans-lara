@@ -15,7 +15,7 @@ class VoteController extends Controller
 
         // Record the vote
         Vote::create([
-            'poll_id' => 1,
+            'poll_id' => 2,
             'contestant_id' => $request->input('contestant_id'),
             'voter_ip' => $request->ip()
         ]);
